@@ -11,37 +11,39 @@ public class ex785 {
     } //модульный тест
     private static class Solution {
         public boolean isBipartite(int[][] graph) {
-            var hasEvenPath=new boolean[graph.length];
-            var hasNotEvenPath=new boolean[graph.length];
-            hasEvenPath[0]=true;
-
+            var typeOfPath=new int[graph.length];
+            /*
+            0-there is no path
+            1-not even path
+            2-even path
+             */
             Queue<Integer> queue= new LinkedList<>();
             boolean hasNotProcessedVertex=true;
             int startVertex=0;
             while(hasNotProcessedVertex) {
                 hasNotProcessedVertex=false;
                 queue.add(startVertex);
-                hasEvenPath[startVertex]=true;
+                typeOfPath[startVertex]=2;
                 while (!queue.isEmpty()) {
                     var current = queue.remove();
-                    if (hasNotEvenPath[current] && hasEvenPath[current] ||
-                            graph[current].length == 0) return false;
-                    if (hasNotEvenPath[current])
+                    if (typeOfPath[current]==1)
                         for (var sibling : graph[current]) {
-                            if (!hasEvenPath[sibling]) {
-                                hasEvenPath[sibling] = true;
+                            if(typeOfPath[sibling]==1)return false;
+                            if (typeOfPath[sibling]==0) {
+                                typeOfPath[sibling] = 2;
                                 queue.add(sibling);
                             }
                         }
                     else for (var sibling : graph[current]) {
-                        if (!hasNotEvenPath[sibling]) {
-                            hasNotEvenPath[sibling] = true;
+                        if(typeOfPath[sibling]==2)return false;
+                        if (typeOfPath[sibling]==0) {
+                            typeOfPath[sibling] = 1;
                             queue.add(sibling);
                         }
                     }
                 }
                 for(;startVertex< graph.length;++startVertex){
-                    if(!hasNotEvenPath[startVertex]&&!hasEvenPath[startVertex]){
+                    if(typeOfPath[startVertex]==0){
                         hasNotProcessedVertex=true;
                         break;
                     }
