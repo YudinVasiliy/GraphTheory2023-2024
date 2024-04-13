@@ -38,7 +38,7 @@ public class ex1514 {
             }
             return maxProb[end_node];
 
-            //my slow algorithm, a lot of unnecessary actions
+            //my slow algorithm, a lot of unnecessary actions and Dijcstra's algorithm is not suitable for this case
             /*class EdgeToVertex implements Comparable<EdgeToVertex>{
                 double probability;
                 int endVertexInd;
@@ -67,28 +67,7 @@ public class ex1514 {
                 edgeToVertexMap.computeIfAbsent(edges[i][0], m -> new ArrayList<>()).add(new EdgeToVertex(succProb[i], edges[i][1]));
                 edgeToVertexMap.computeIfAbsent(edges[i][1], m -> new ArrayList<>()).add(new EdgeToVertex(succProb[i], edges[i][0]));
             }
-            var probabilities=new double[n];
-            probabilities[start_node]=1.0;
-
-            PriorityQueue<EdgeToVertex> queue=new PriorityQueue<>(n);
-            for(int i=0;i<n;++i){
-                queue.add(new EdgeToVertex(probabilities[i],i));
-            }
-            while (!queue.isEmpty()){
-                var current=queue.remove();
-                if(current.endVertexInd==end_node)return current.probability;
-                var siblings=edgeToVertexMap.getOrDefault(current.endVertexInd,new ArrayList<>());
-                for (EdgeToVertex sibling : siblings) {
-                    if (probabilities[sibling.endVertexInd] <
-                            current.probability * sibling.probability) {
-                        queue.remove(sibling);
-                        sibling.probability = probabilities[sibling.endVertexInd] =
-                                current.probability * sibling.probability;
-                        queue.add(sibling);
-                    }
-                }
-            }
-            return probabilities[end_node];*/
+             */
         }
     }
 }
