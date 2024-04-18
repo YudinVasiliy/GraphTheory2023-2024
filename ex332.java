@@ -1,4 +1,4 @@
-package org.leetcode;
+package graphs.leetcode;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;

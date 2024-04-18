@@ -1,4 +1,4 @@
-package org.leetcode;
+package graphs.leetcode;
 
 
 public class ex1514 {
