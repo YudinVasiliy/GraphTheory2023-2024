@@ -5,10 +5,22 @@ class Graph:
         self.graph = defaultdict(dict)
 
     def add_edge(self, u, v, capacity):
-        # Добавляем прямое ребро с заданной пропускной способностью
-        self.graph[u][v] = capacity
-        # Добавляем обратное ребро с начальной пропускной способностью 0
-        self.graph[v][u] = 0
+        # проверяем, существует ли уже ребро в прямом направлении
+        if v in self.graph[u]:
+            # если существует, обновляем пропускную способность
+            self.graph[u][v] = capacity
+        else:
+            # если не существует, добавляем ребро в прямом направлении
+            self.graph[u][v] = capacity
+
+        # проверяем, существует ли уже ребро в обратном направлении
+        if u in self.graph[v]:
+            # если существует, обновляем пропускную способность
+            self.graph[v][u] = capacity
+        else:
+            # если не существует, добавляем ребро в обратном направлении
+            # пропускная способность обратного ребра по умолчанию 0
+            self.graph[v][u] = 0  
 
     @classmethod
     #строим граф по текстовому файлу
@@ -92,7 +104,7 @@ class Graph:
         return 0
 
 # Проверка на тестовом примере:
-test_graph_file = "graph.txt"
+test_graph_file = "test_4.txt"
 with open(test_graph_file, 'r') as file:
     count_vertices, count_edges = map(int, file.readline().split())
 source = 1
