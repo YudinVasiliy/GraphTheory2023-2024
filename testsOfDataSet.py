@@ -3,14 +3,14 @@ def testGraphFromFile(test_graph_file):
     print("test: ",test_graph_file)
     with open(test_graph_file, 'r') as file:
         count_vertices, count_edges = map(int, file.readline().split())
-    source = 1
-    sink = count_vertices
+    source = 0
+    sink = count_vertices-1
     graph_test = edmonds_karp.Graph.create_from_file(test_graph_file)
     resultEd=graph_test.edmonds_karp(source, sink)
     print("Максимальный поток (алгоритм Edmonds–Karp):", resultEd)
 
     graph_test = dinic.Graph.create_from_file(test_graph_file)
-    resultDinic=graph_test.dinic(source-1, sink-1)
+    resultDinic=graph_test.dinic(source, sink)
     print("Максимальный поток (алгоритм Диница):", resultDinic)
     if(resultEd==resultDinic):print("OK")
     else: print("FALSE!!!!!!")
