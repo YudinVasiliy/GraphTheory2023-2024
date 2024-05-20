@@ -76,11 +76,11 @@ class Graph:
         return max_flow
 
 # Проверка на тестовом примере:
-test_graph_file = "test_4.txt"
-with open(test_graph_file, 'r') as file:
-    count_vertices, count_edges = map(int, file.readline().split())
-source = 1
-sink = count_vertices
+# test_graph_file = "test_4.txt"
+# with open(test_graph_file, 'r') as file:
+#     count_vertices, count_edges = map(int, file.readline().split())
+# source = 1
+# sink = count_vertices
 
-graph_test = Graph.create_from_file(test_graph_file)
-print("Максимальный поток (алгоритм Edmonds–Karp):", graph_test.edmonds_karp(source, sink))
+# graph_test = Graph.create_from_file(test_graph_file)
+# print("Максимальный поток (алгоритм Edmonds–Karp):", graph_test.edmonds_karp(source, sink))

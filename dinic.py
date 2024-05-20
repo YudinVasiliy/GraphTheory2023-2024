@@ -134,11 +134,11 @@ class Graph:
 
 
 # Проверка на тестовом примере:
-test_graph_file = "MaxFlow-tests/test_d4.txt"
-with open(test_graph_file, 'r') as file:
-    count_vertices, count_edges = map(int, file.readline().split())
-source = 0
-sink = count_vertices-1
+# test_graph_file = "MaxFlow-tests/test_d4.txt"
+# with open(test_graph_file, 'r') as file:
+#     count_vertices, count_edges = map(int, file.readline().split())
+# source = 0
+# sink = count_vertices-1
 
-graph_test = Graph.create_from_file(test_graph_file)
-print("Максимальный поток (алгоритм Диница):", graph_test.dinic(source, sink))
+# graph_test = Graph.create_from_file(test_graph_file)
+# print("Максимальный поток (алгоритм Диница):", graph_test.dinic(source, sink))
