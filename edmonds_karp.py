@@ -1,15 +1,14 @@
-from collections import defaultdict, deque
-
+from collections import deque
 class Graph:
     def __init__(self):
-        self.graph = defaultdict(dict)
+        self.graph = []
 
     def add_edge(self, u, v, capacity):
         # Добавляем прямое ребро с заданной пропускной способностью
-        self.graph[u][v] = capacity
-        # если обратное ребро отсутствует - добавляем 
-        if u not in self.graph[v]:
-            self.graph[v][u] = 0
+        self.graph[u-1][v-1]=capacity
+        # если обратное ребро отсутствует - добавляем
+        if (u-1) not in self.graph[v-1]:
+            self.graph[v-1][u-1] = 0
 
     @classmethod
     #строим граф по текстовому файлу
@@ -18,10 +17,13 @@ class Graph:
         with open(graph_file, 'r') as file:
             # 1 строка - число вершин, число рёбер
             count_vertices, count_edges = map(int, file.readline().split())
+            graph.graph = [{} for _ in range(count_vertices)]
             # описание рёбер графа - исходящая вершина ребра, входящая вершина ребра, пропускная способность
             for i in range(count_edges):
                 u, v, capacity = map(int, file.readline().split())
                 graph.add_edge(u, v, capacity)
+        # for i in range(0, len(graph.graph)):
+        #     print(i,": ",graph.graph[i].items())
         return graph
 
     # breadth-first search
@@ -74,13 +76,3 @@ class Graph:
             # очистили словарь использованных вершин
             parent = {}
         return max_flow
-
-# Проверка на тестовом примере:
-# test_graph_file = "test_4.txt"
-# with open(test_graph_file, 'r') as file:
-#     count_vertices, count_edges = map(int, file.readline().split())
-# source = 1
-# sink = count_vertices
-
-# graph_test = Graph.create_from_file(test_graph_file)
-# print("Максимальный поток (алгоритм Edmonds–Karp):", graph_test.edmonds_karp(source, sink))
