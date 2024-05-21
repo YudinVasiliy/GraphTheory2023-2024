@@ -1,5 +1,5 @@
 import unittest
-from hello import Graph 
+from edmonds_karp import Graph 
 import time
 
 class TestEdmondsKarpAlgorithm(unittest.TestCase):
