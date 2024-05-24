@@ -3,9 +3,30 @@ import random
 import networkx as nx
 
 def generate_graph(n, m, U):
-    graph = nx.gnm_random_graph(n, m, directed=True)
-    for u, v in graph.edges():
-        graph[u][v]['capacity'] = random.randint(1, U)
+    if m < n - 1:
+        raise ValueError("Для связного графа количество рёбер должно быть не меньше n-1")
+    if m > n * (n - 1):
+        raise ValueError(f"Для ориентированного графа количество рёбер не может превышать {n * (n - 1)}")
+    
+    # Создаем ориентированный граф с n вершинами
+    graph = nx.DiGraph()
+
+    # Создаем базовый связный компонент
+    nodes = list(range(n))
+    random.shuffle(nodes)
+    for i in range(n - 1):
+        u = nodes[i]
+        v = nodes[i + 1]
+        graph.add_edge(u, v, capacity=random.randint(1, U))
+
+    # Добавляем оставшиеся рёбра случайным образом
+    remaining_edges = m - (n - 1)
+    while remaining_edges > 0:
+        u, v = random.sample(range(n), 2)
+        if not graph.has_edge(u, v):
+            graph.add_edge(u, v, capacity=random.randint(1, U))
+            remaining_edges -= 1
+
     return graph
 
 def write_graph_to_file(graph, filename):
@@ -35,21 +56,27 @@ def generate_worst_case_graph_dinic(n, capacity_large, capacity_small, filename)
             file.write(f"{u + 1} {v + 1} {capacity}\n")
 
 
-# Ввод параметров с консоли
-# n = int(input("Введите число вершин (n): "))
-# m = int(input("Введите число рёбер (m): "))
-# U = int(input("Введите максимальную пропускную способность (U): "))
+#Ввод параметров с консоли
+#n = int(input("Введите число вершин (n): "))
+#m = int(input("Введите число рёбер (m): "))
+#U = int(input("Введите максимальную пропускную способность (U): "))
 
-# Создание папки для файлов
-# folder_name = f"{n}_{m}_{U}"
-# os.makedirs(folder_name, exist_ok=True)
+#if m < n - 1:
+#    raise ValueError("Для связного графа количество рёбер должно быть не меньше n-1")
+#if m > n * (n - 1):
+#    raise ValueError(f"Для ориентированного графа количество рёбер не может превышать {n * (n - 1)}")
 
-# Генерация 50 графов и запись в файлы
-# for i in range(1, 51):
+#Создание папки для файлов
+#folder_name = f"{n}_{m}_{U}"
+#os.makedirs(folder_name, exist_ok=True)
+
+#Генерация 50 графов и запись в файлы
+#for i in range(1, 51):
 #     graph = generate_graph(n, m, U)
 #     filename = os.path.join(folder_name, f"{i}.txt")
 #     write_graph_to_file(graph, filename)
-#     print(f"Граф {i} сохранён в файле {filename}")
+#     if nx.is_weakly_connected(graph):
+#        print(f"Граф слабосвязен {i} сохранён в файле {filename}")
 
     
 
