@@ -1,4 +1,4 @@
-package graphs.leetcode;
+package graphs.leetcode.Yudin;
 
 import java.util.*;
 

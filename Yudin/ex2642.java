@@ -1,6 +1,4 @@
-package graphs.leetcode;
-
-import java.util.*;
+package graphs.leetcode.Yudin;
 
 public class ex2642 {
 

@@ -1,7 +1,6 @@
-package graphs.leetcode;
+package graphs.leetcode.Yudin;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class ex2662 {
     public static void main(String[] args){
